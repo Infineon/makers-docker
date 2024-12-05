@@ -20,7 +20,7 @@ jobs:
 
     env:
       GHCR_REGISTRY: ghcr.io
-      # IMAGE_NAME: ${{ github.repository }}
+      # issue : organization "Infineon" with capital "I" not allowed.
       IMAGE_NAME: infineon/makers-docker
 
 
