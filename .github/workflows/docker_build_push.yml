@@ -64,6 +64,11 @@ jobs:
 
 
       - if: ${{ github.event_name == 'pull_request' }}
+        name: ref test
+        run: |
+          echo "ref : " ${GITHUB_REF#refs/tags/}
+
+      - if: ${{ github.event_name == 'pull_request' }}
         name: Build and push docker image to ghcr.io with tags
         id: pull_request_ghcr
         uses: docker/build-push-action@v5
