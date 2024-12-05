@@ -36,7 +36,7 @@ ENV CC=clang-18
 # arduino-cli board listall Infineon:psoc \
 # arduino-cli board listall Infineon \
 # arduino-cli board listall
- 
+
 
 ### LLVM
 # For convenience there is an automatic installation script available that installs LLVM for you.
