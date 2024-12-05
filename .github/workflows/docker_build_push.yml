@@ -20,7 +20,8 @@ jobs:
 
     env:
       GHCR_REGISTRY: ghcr.io
-      IMAGE_NAME: ${{ github.repository }}
+      # IMAGE_NAME: ${{ github.repository }}
+      IMAGE_NAME: infineon/makers-docker
 
 
     permissions:
