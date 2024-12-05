@@ -2,7 +2,7 @@ name: Create and publish a docker image to GitHub Container Registry and Docker-
 
 on:
   pull_request:
-    branches: main/**
+    branches: [ main ]
     paths:
       - 'docker/makers-dockerfile'
 
