@@ -63,10 +63,20 @@ jobs:
           labels: ${{ steps.meta_ghcr.outputs.labels }}
 
 
-      - if: ${{ github.event_name == 'pull_request' }}
-        name: ref test
-        run: |
-          echo "ref : " ${GITHUB_REF#refs/tags/}
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      # - if: ${{ github.event_name == 'pull_request' }}
+      #   name: ref test
+      #   run: |
+      #     # echo "ref : " ${GITHUB_REF#refs/tags/}
+      #     echo "GITHUB_REF : " ${GITHUB_REF}
+      #     echo "github.base_ref : " ${github.base_ref}
+      #     echo "github.head_ref : " ${github.head_ref}
+      #     echo "github.event : " ${github.event}
+      #     echo "github : " ${github}
 
       - if: ${{ github.event_name == 'pull_request' }}
         name: Build and push docker image to ghcr.io with tags

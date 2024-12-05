@@ -35,7 +35,7 @@ ENV CC=clang-18
 # arduino-cli board listall Infineon:xmc \
 # arduino-cli board listall Infineon:psoc \
 # arduino-cli board listall Infineon \
-# arduino-cli board listall 
+# arduino-cli board listall  
 
 
 ### LLVM
