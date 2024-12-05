@@ -1,10 +1,10 @@
 name: Create and publish a docker image to GitHub Container Registry and Docker-hub
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - 'docker/makers-dockerfile'
+  release:
+    # branches: [ main ]
+    # paths:
+    #   - 'docker/makers-dockerfile'
 
   push:
     tags:
@@ -68,17 +68,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
 
-      # - if: ${{ github.event_name == 'pull_request' }}
-      #   name: ref test
-      #   run: |
-      #     # echo "ref : " ${GITHUB_REF#refs/tags/}
-      #     echo "GITHUB_REF : " ${GITHUB_REF}
-      #     echo "github.base_ref : " ${github.base_ref}
-      #     echo "github.head_ref : " ${github.head_ref}
-      #     echo "github.event : " ${github.event}
-      #     echo "github : " ${github}
-
-      - if: ${{ github.event_name == 'pull_request' }}
+      - if: ${{ github.event_name == 'release' }}
         name: Build and push docker image to ghcr.io with tags
         id: pull_request_ghcr
         uses: docker/build-push-action@v5
@@ -147,7 +137,7 @@ jobs:
           labels: ${{ steps.meta_docker.outputs.labels }}
 
 
-      - if: ${{ github.event_name == 'pull_request' }}
+      - if: ${{ github.event_name == 'release' }}
         name: Build and push docker image to docker-hub
         id: pull_request_docker
         uses: docker/build-push-action@v5
