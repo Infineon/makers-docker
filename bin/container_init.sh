@@ -7,6 +7,7 @@ apt-get install -y apt-utils cmake curl git gnupg make perl python3 lsb-release 
 # apt-get install -y clang-format clang-tidy clang-tools clang cppcheck gcc-arm-none-eabi binutils-arm-none-eabi
 # libffi-dev pkg-config
 
+
 apt purge clang-format
 apt purge clang-tidy
 apt purge clang-tools
