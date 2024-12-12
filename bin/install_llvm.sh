@@ -27,8 +27,3 @@ ln -s `which clang++-${LLVM_VERSION}` /opt/bin/clang++
 ln -s `which clang-format-${LLVM_VERSION}` /opt/bin/clang-format
 ln -s `which clang-tidy-${LLVM_VERSION}` /opt/bin/clang-tidy
 ln -s `which scan-build-${LLVM_VERSION}` /opt/bin/scan-build
-
-# export CXX=clang++
-# export CC=clang 
-
-# env CXX=clang++ CC=clang 
