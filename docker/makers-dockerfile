@@ -12,7 +12,7 @@ WORKDIR /myLocalWorkingDir
 
 # Update the package list and install any available updates
 RUN apt update && apt full-upgrade -y
-RUN apt-get install -y wget
+RUN apt-get install -y wget pip python3-schema
 
 
 # Arduino related vars
