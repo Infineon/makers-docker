@@ -58,7 +58,4 @@ RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docke
 ## 
 CMD \
 cd /myLocalWorkingDir && \
-bin/print_tool_versions.sh && \
 bash
-
-# chown -R --reference=src cppcheck-reports
