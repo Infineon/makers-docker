@@ -4,97 +4,57 @@ FROM ubuntu:24.04
 # Set environment variable to avoid dialog prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Set the working directory to /app
+# Set the working directory to /myLocalWorkingDir
 WORKDIR /myLocalWorkingDir
 
+
 # Update the package list and install any available updates
-# RUN apt update && apt full-upgrade -y
-
-# RUN apt-get install -y apt-utils cmake curl git gnupg make perl python3 wget lsb-release software-properties-common \
-#     clang-format clang-tidy clang-tools clang cppcheck
-# # libffi-dev pkg-config
+RUN apt update && apt full-upgrade -y
+RUN apt-get install -y wget
 
 
-ENV CXX=clang++-18
-ENV CC=clang-18
+# Arduino related vars
+ENV ARDUINO_CLI_VERSION=1.1.1
+ENV XMC4ARDUINO_VERSION=3.4.1
+ENV PSOC4ARDUINO_VERSION=0.0.0
+
+# Tool related version vars
+# ENV CPPCHECK_VERSION=
+ENV LLVM_VERSION=19
 
 
-### arduino-cli
-# RUN cd /opt && mkdir bin && curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/opt/bin sh -s 1.1.1 \
-# arduino-cli config init \
-# arduino-cli config set board_manager.additional_urls https://github.com/Infineon/XMC-for-Arduino/releases/download/V3.4.1/package_infineon_index.json \
-#                                                      https://github.com/Infineon/arduino-core-psoc/releases/download/0.0.0/package_psoc_index.json \
-# arduino-cli core update-index \
-# arduino-cli core install Infineon:xmc@3.4.1 \
-
-# arduino-cli core search arduino \
-# arduino-cli core install arduino:avr@1.8.6 \
-# \
-# arduino-cli core install arduino:renesas_uno@1.2.2 \
-# ~/.arduino15/packages/arduino/hardware/renesas_uno/1.2.2/post_install.sh \
-# arduino-cli board listall Infineon:xmc \
-# arduino-cli board listall Infineon:psoc \
-# arduino-cli board listall Infineon \
-# arduino-cli board listall   
+ENV PATH="/opt/bin:$PATH"
+# ENV PATH="/opt/bin:/opt/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin:$PATH"
 
 
-### LLVM
-# For convenience there is an automatic installation script available that installs LLVM for you.
-# To install the latest stable version:
-# bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
-
-# # To install a specific version of LLVM:
-# RUN wget https://apt.llvm.org/llvm.sh && \
-# chmod +x llvm.sh && \
-# ./llvm.sh 19 all
-
-##To install all apt.llvm.org packages at once:
-#wget https://apt.llvm.org/llvm.sh
-#chmod +x llvm.sh
-#sudo ./llvm.sh <version number> all
-# or
-#sudo ./llvm.sh all
-
-# ENV CXX=clang++-19
-# ENV CC=clang-19
+# init container
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/container_init.sh)"
 
 
-### cppcheck
-### install latest version of cppcheck
-# RUN cd /opt && \
-# git clone https://github.com/danmar/cppcheck && \
-# cd cppcheck && \
-# make MATCHCOMPILER=yes FILESDIR=/opt/cppcheck CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function" && \
-# mkdir /opt/bin && \
-# cp -t /opt/bin cppcheck htmlreport/cppcheck-htmlreport
-
-# && \
-# cd /opt && \
-# rm -rf cppcheck && \
-# ls -l bin
-
- 
-  
-
-### gcc-arm-none-eabi
-# RUN cd /opt && \
-# wget "https://developer.arm.com/-/media/Files/downloads/gnu/13.3.rel1/binrel/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi.tar.xz" && \
-# tar -Jxf arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi.tar.xz && \
-# rm arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi.tar.xz
-# # export PATH="/opt/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin:$PATH"
-
-# # apt-get install
-### OR
-# RUN apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
+# install arduino-cli
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/install_arduino_cli.sh)"
 
 
-ENV MY_ENV="Env test"
+# install LLVM tool suite
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/install_llvm.sh)"
 
-ENV PATH="/opt/bin:/opt/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin:$PATH"
+
+# install cppcheck latest (needs LLVM, so keep this order of installing tools)
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/install_cppcheck.sh)"
 
 
-## Run the command
+# print used tool related vars
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/print_tool_versions.sh)"
+
+
+# cleanup container
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/container_cleanup.sh)"
+
+
+## 
 CMD \
+cd /myLocalWorkingDir && \
+bin/print_tool_versions.sh && \
 bash
 
 # chown -R --reference=src cppcheck-reports
