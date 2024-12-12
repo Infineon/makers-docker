@@ -5,7 +5,7 @@ cd /opt
 
 # To install a specific version of LLVM:
 wget https://apt.llvm.org/llvm.sh
-chmod +x llvm.sh && \
+chmod +x llvm.sh
 ./llvm.sh ${LLVM_VERSION} all
 
 
@@ -22,12 +22,8 @@ chmod +x llvm.sh && \
 # sudo ./llvm.sh all
 
 
-RUN ln -s `which clang-${LLVM_VERSION}` /opt/bin/clang
-RUN ln -s `which clang++-${LLVM_VERSION}` /opt/bin/clang++
-RUN ln -s `which clang-format-${LLVM_VERSION}` /opt/bin/clang-format
-RUN ln -s `which clang-tidy-${LLVM_VERSION}` /opt/bin/clang-tidy
-RUN ln -s `which scan-build-${LLVM_VERSION}` /opt/bin/scan-build
-
-
-ENV CXX=clang++
-ENV CC=clang 
+ln -s `which clang-${LLVM_VERSION}` /opt/bin/clang
+ln -s `which clang++-${LLVM_VERSION}` /opt/bin/clang++
+ln -s `which clang-format-${LLVM_VERSION}` /opt/bin/clang-format
+ln -s `which clang-tidy-${LLVM_VERSION}` /opt/bin/clang-tidy
+ln -s `which scan-build-${LLVM_VERSION}` /opt/bin/scan-build
