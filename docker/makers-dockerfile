@@ -1,8 +1,10 @@
 # Use an official Ubuntu 24.04 image as the base
 FROM ubuntu:24.04
 
+
 # Set environment variable to avoid dialog prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
+
 
 # Set the working directory to /myLocalWorkingDir
 WORKDIR /myLocalWorkingDir

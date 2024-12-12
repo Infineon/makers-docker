@@ -5,7 +5,7 @@ cd /opt
 
 # To install a specific version of LLVM:
 wget https://apt.llvm.org/llvm.sh
-chmod +x llvm.sh && \
+chmod +x llvm.sh
 ./llvm.sh ${LLVM_VERSION} all
 
 

@@ -2,9 +2,7 @@ name: Create and publish a docker image to GitHub Container Registry and Docker-
 
 on:
   release:
-    # branches: [ main ]
-    # paths:
-    #   - 'docker/makers-dockerfile'
+    types: [published]
 
   push:
     tags:
@@ -59,18 +57,13 @@ jobs:
           context: .
           file: docker/makers-dockerfile
           push: true
-          tags: ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME }}:test_push
+          tags: ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME }}:push
           labels: ${{ steps.meta_ghcr.outputs.labels }}
 
 
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
       - if: ${{ github.event_name == 'release' }}
-        name: Build and push docker image to ghcr.io with tags
-        id: pull_request_ghcr
+        name: Release docker image to ghcr.io with tags
+        id: release_ghcr
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -80,14 +73,14 @@ jobs:
           labels: ${{ steps.meta_ghcr.outputs.labels }}
 
 
-      # - if: ${{ github.event_name == 'pull_request' }}
-      # - name: Generate artifact attestation
-      #   uses: actions/attest-build-provenance@v1
-      #   with:
-      #     subject-name: ${{ env.GHCR_REGISTRY }}/bargfred/cicdtemplate
-      #     # subject-name: ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME}}
-      #     subject-digest: ${{ steps.pull_request_ghcr.outputs.digest }}
-      #     push-to-registry: true
+      - if: ${{ github.event_name == 'release' }}
+        name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-digest: ${{ steps.release_ghcr.outputs.digest }}
+          push-to-registry: true
+
 
 
   build-and-push-image-to-docker:
@@ -118,7 +111,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
 
-      - name: Extract metadata (tags, labels) for Docker
+      - name: Extract metadata (tags, labels) for docker
         id: meta_docker
         uses: docker/metadata-action@v5
         with:
@@ -133,13 +126,13 @@ jobs:
           context: .
           file: docker/makers-dockerfile
           push: true
-          tags: ${{ env.IMAGE_NAME }}:test_push
+          tags: ${{ env.IMAGE_NAME }}:push
           labels: ${{ steps.meta_docker.outputs.labels }}
 
 
       - if: ${{ github.event_name == 'release' }}
-        name: Build and push docker image to docker-hub
-        id: pull_request_docker
+        name: Release docker image to docker-hub
+        id: release_docker
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -149,9 +142,10 @@ jobs:
           labels: ${{ steps.meta_docker.outputs.labels }}
   
           
-      # - name: Generate artifact attestation
-      #   uses: actions/attest-build-provenance@v1
-      #   with:
-      #     # subject-name: ${{ env.IMAGE_NAME}}
-      #     subject-digest: ${{ steps.pull_request_docker.outputs.digest }}
-      #     push-to-registry: true
+      - if: ${{ github.event_name == 'release' }}
+        name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.release_docker.outputs.digest }}
+          push-to-registry: true
