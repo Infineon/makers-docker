@@ -89,7 +89,7 @@ jobs:
 
 
     env:
-      IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/makers-devops
+      IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/makers-docker
 
 
     permissions:
