@@ -37,8 +37,8 @@ RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docke
 
 # install LLVM tool suite
 RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/install_llvm.sh)"
-# ENV CXX=clang++
-# ENV CC=clang 
+ENV CXX=clang++
+ENV CC=clang 
 
 
 # install cppcheck latest (needs LLVM, so keep this order of installing tools)
