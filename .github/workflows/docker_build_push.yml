@@ -59,8 +59,8 @@ jobs:
           push: true
           tags: ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME }}:push
           labels: ${{ steps.meta_ghcr.outputs.labels }}
-          build-args:
-            BRANCH=test_push
+          build-args: |
+            BRANCH=main
 
 
       - if: ${{ github.event_name == 'release' }}
@@ -73,7 +73,7 @@ jobs:
           push: true
           tags: ${{ steps.meta_ghcr.outputs.tags }}
           labels: ${{ steps.meta_ghcr.outputs.labels }}
-          build-args:
+          build-args: |
             BRANCH=main
 
 
@@ -134,6 +134,8 @@ jobs:
           push: true
           tags: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:push
           labels: ${{ steps.meta_docker.outputs.labels }}
+          build-args: |
+            BRANCH=mainnnnnn
 
 
       - if: ${{ github.event_name == 'release' }}
@@ -146,7 +148,9 @@ jobs:
           push: true
           tags: ${{ steps.meta_docker.outputs.tags }}
           labels: ${{ steps.meta_docker.outputs.labels }}
-  
+          build-args: |
+            BRANCH=mainnnnnn
+
           
       # - if: ${{ github.event_name == 'release' }}
       #   name: Generate artifact attestation
