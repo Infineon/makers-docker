@@ -8,6 +8,11 @@ echo ""
 echo "    CPPCHECK_VERSION     : ${PSOC4ARDUINO_VERSION}"
 echo "    LLVM_VERSION         : ${PSOC4ARDUINO_VERSION}"
 echo ""
+echo "    BRANCH               : ${BRANCH}"
+echo ""
+echo "    ARDUINO_CONFIG_FILE      : ${ARDUINO_CONFIG_FILE}"
+echo "    ARDUINO_DIRECTORIES_DATA : ${ARDUINO_DIRECTORIES_DATA}"
+echo ""
 
 echo "Tools :"
 echo "    which arduino-cli : "`which arduino-cli`

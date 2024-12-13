@@ -59,6 +59,8 @@ jobs:
           push: true
           tags: ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME }}:push
           labels: ${{ steps.meta_ghcr.outputs.labels }}
+          build-args:
+            BRANCH=test_push
 
 
       - if: ${{ github.event_name == 'release' }}
@@ -71,6 +73,8 @@ jobs:
           push: true
           tags: ${{ steps.meta_ghcr.outputs.tags }}
           labels: ${{ steps.meta_ghcr.outputs.labels }}
+          build-args:
+            BRANCH=main
 
 
       # - if: ${{ github.event_name == 'release' }}
