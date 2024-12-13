@@ -5,12 +5,12 @@ cd /opt
 
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/opt/bin sh -s ${ARDUINO_CLI_VERSION}
 
-arduino-cli config init
-arduino-cli config set board_manager.additional_urls https://github.com/Infineon/XMC-for-Arduino/releases/download/V${XMC4ARDUINO_VERSION}/package_infineon_index.json
-arduino-cli core update-index
-arduino-cli core install Infineon:xmc@${XMC4ARDUINO_VERSION}
+arduino-cli config init --config-file /root/.arduino15/arduino-cli.yaml
+arduino-cli config set --config-file /root/.arduino15/arduino-cli.yaml board_manager.additional_urls https://github.com/Infineon/XMC-for-Arduino/releases/download/V${XMC4ARDUINO_VERSION}/package_infineon_index.json
+arduino-cli core update-index --config-file /root/.arduino15/arduino-cli.yaml
+arduino-cli core install --config-file /root/.arduino15/arduino-cli.yaml Infineon:xmc@${XMC4ARDUINO_VERSION}
 
-arduino-cli board listall Infineon:xmc
+arduino-cli board listall --config-file /root/.arduino15/arduino-cli.yaml Infineon:xmc
 
 
 #  arduino-cli config set board_manager.additional_urls https://github.com/Infineon/XMC-for-Arduino/releases/download/V${XMC4ARDUINO_VERSION}/package_infineon_index.json https://github.com/Infineon/arduino-core-psoc/releases/download/V${PSOC4ARDUINO_VERSION}/package_psoc_index.json && \
