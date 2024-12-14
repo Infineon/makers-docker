@@ -29,7 +29,8 @@ ENV ARDUINO_DIRECTORIES_DATA=/root/.arduino15
 ENV LLVM_VERSION=19
 
 
-ENV BRANCH=none
+ARG BRANCH=none
+RUN echo "echo BRANCH : $BRANCH"
 
 
 ENV PATH="/opt/bin:$PATH"
