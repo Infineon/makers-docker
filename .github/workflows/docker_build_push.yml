@@ -82,12 +82,11 @@ jobs:
             ${{ env.DOCKER_IMAGE_NAME }}:push
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            BRANCH=main
-# BRANCH=push
+            BRANCH=test_push
 
 
       - if: ${{ github.event_name == 'release' }}
-        name: Release docker image to GitHub Container Registry and Docker Hub with tags
+        name: Build and push release docker image to GitHub Container Registry and Docker Hub with tags
         id: release
         uses: docker/build-push-action@v6
         with:
