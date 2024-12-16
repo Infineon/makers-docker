@@ -25,7 +25,6 @@ ENV LLVM_VERSION=19
 
 
 ARG BRANCH=none
-RUN echo "echo BRANCH : $BRANCH"
 
 
 ENV PATH="/opt/bin:$PATH"
@@ -38,33 +37,33 @@ RUN apt-get install -y wget
 
 
 # init container
-RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/container_init.sh)"
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/container_init.sh)"
 
 
 # basic dependencies to Python
-RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/install_python.sh)"
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_python.sh)"
 
 
 # install arduino-cli
-RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/install_arduino_cli.sh)"
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_arduino_cli.sh)"
 
 
 # install LLVM tool suite
-RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/install_llvm.sh)"
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_llvm.sh)"
 ENV CXX=clang++
 ENV CC=clang
  
 
 # install cppcheck after LLVM as LLVM is used for compiling cppcheck !
-RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/install_cppcheck.sh)"
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_cppcheck.sh)"
 
 
 # print used tool related vars
-RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/print_tool_versions.sh)"
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/print_tool_versions.sh)"
 
 
 # cleanup container
-RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/container_cleanup.sh)"
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/container_cleanup.sh)"
 
 
 ## 
