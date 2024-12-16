@@ -2,7 +2,9 @@
 
 
 # Install additional packages
-apt-get install -y apt-utils cmake curl git gnupg make perl python3 lsb-release software-properties-common
+apt-get install -y apt-utils cmake curl git gnupg make lsb-release software-properties-common
+# perl
+# python3
 
 # apt-get install -y clang-format clang-tidy clang-tools clang cppcheck gcc-arm-none-eabi binutils-arm-none-eabi
 # libffi-dev pkg-config

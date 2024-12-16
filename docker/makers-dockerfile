@@ -10,11 +10,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /myLocalWorkingDir
 
 
-# Update the package list and install any available updates
-RUN apt update && apt full-upgrade -y
-RUN apt-get install -y wget pip python3-schema
-
-
 # Arduino related vars
 ENV ARDUINO_CLI_VERSION=1.1.1
 ENV XMC4ARDUINO_VERSION=3.4.1
@@ -37,8 +32,17 @@ ENV PATH="/opt/bin:$PATH"
 # ENV PATH="/opt/bin:/opt/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin:$PATH"
 
 
+# Update the package list and install any available updates
+RUN apt update && apt full-upgrade -y
+RUN apt-get install -y wget
+
+
 # init container
 RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/container_init.sh)"
+
+
+# basic dependencies to Python
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/install_python.sh)"
 
 
 # install arduino-cli
@@ -51,7 +55,7 @@ ENV CXX=clang++
 ENV CC=clang
  
 
-# install cppcheck latest (needs LLVM, so keep this order of installing tools)
+# install cppcheck after LLVM as LLVM is used for compiling cppcheck !
 RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/main/bin/install_cppcheck.sh)"
 
 
