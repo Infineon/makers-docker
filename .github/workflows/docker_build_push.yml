@@ -85,7 +85,8 @@ jobs:
             ${{ env.DOCKER_IMAGE_NAME }}:push
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            BRANCH=push
+            BRANCH=main
+# BRANCH=push
 
 # ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:push
 
