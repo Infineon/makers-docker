@@ -69,10 +69,9 @@ RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docke
 RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/container_cleanup.sh)"
 
 
-# Create cmd script on-the-fly to be executed in CMD below to avoid docker warnings
+# Create cmd script on-the-fly to be executed in CMD below to avoid docker warnings 
 COPY --chmod=755 <<EOT /dockerCMD.sh
 #!/usr/bin/env bash
-set -e
 cd /myLocalWorkingDir
 bash
 EOT
