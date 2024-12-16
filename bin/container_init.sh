@@ -3,8 +3,6 @@
 
 # Install additional packages
 apt-get install -y apt-utils cmake curl git gnupg make lsb-release software-properties-common
-# perl
-# python3
 
 # apt-get install -y clang-format clang-tidy clang-tools clang cppcheck gcc-arm-none-eabi binutils-arm-none-eabi
 # libffi-dev pkg-config
@@ -18,9 +16,9 @@ apt purge cppcheck
 
 
 # if [ -f /.dockerenv ]; then
-#     echo "I'm inside matrix ;(";
+#     echo "Running inside a docker container !";
 # else
-#     echo "I'm living in real world!";
+#     echo "NOT running inside a docker container !";
 # fi
 
 

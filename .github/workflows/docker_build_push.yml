@@ -59,7 +59,6 @@ jobs:
             ${{ env.GHCR_REGISTRY }}/${{ env.GHCR_IMAGE_NAME }}      
           tags: |
             type=semver,pattern={{version}}
-#            type=semver,pattern=latest
  
 
       # - name: Set up QEMU
@@ -75,10 +74,8 @@ jobs:
         id: push
         uses: docker/build-push-action@v6
         with:
-          # platforms: linux/amd64,linux/arm64
           file: docker/makers-dockerfile
           push: true
-          # provenance: mode=max
           # sbom: true
           tags: |
             ${{ env.GHCR_REGISTRY }}/${{ env.GHCR_IMAGE_NAME }}:push
@@ -88,42 +85,17 @@ jobs:
             BRANCH=main
 # BRANCH=push
 
-# ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:push
-
 
       - if: ${{ github.event_name == 'release' }}
         name: Release docker image to GitHub Container Registry and Docker Hub with tags
         id: release
         uses: docker/build-push-action@v6
         with:
-          # platforms: linux/amd64,linux/arm64
           file: docker/makers-dockerfile
           push: true
-          # provenance: mode=max
           # sbom: true
           tags: |
               ${{ steps.meta.outputs.tags }}
-          # tags: |
-          #   ${{ env.GHCR_REGISTRY }}/${{ env.GHCR_IMAGE_NAME }}:latest
-          #   ${{ env.DOCKER_IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             BRANCH=main
-
-
-      # - if: ${{ github.event_name == 'release' }}
-      #   name: Generate artifact attestation
-      #   uses: actions/attest-build-provenance@v2
-      #   with:
-      #     subject-name: ${{ env.GHCR_REGISTRY }}/${{ env.GHCR_IMAGE_NAME}}
-      #     subject-digest: ${{ steps.release_ghcr.outputs.digest }}
-      #     push-to-registry: true
-
-          
-      # - if: ${{ github.event_name == 'release' }}
-      #   name: Generate artifact attestation
-      #   uses: actions/attest-build-provenance@v2
-      #   with:
-      #     subject-name: index.${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}
-      #     subject-digest: ${{ steps.release_docker.outputs.digest }}
-      #     push-to-registry: true

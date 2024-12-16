@@ -66,6 +66,9 @@ RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docke
 RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/container_cleanup.sh)"
 
 
+RUN hash
+
+
 ## 
 CMD \
 cd /myLocalWorkingDir && \

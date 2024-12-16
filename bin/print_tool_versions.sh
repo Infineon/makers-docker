@@ -1,7 +1,5 @@
 #!/bin/sh
 
-hash
-
 echo "Environment variables :"
 echo "    ARDUINO_CLI_VERSION  : ${ARDUINO_CLI_VERSION}"
 echo "    XMC4ARDUINO_VERSION  : ${XMC4ARDUINO_VERSION}"
