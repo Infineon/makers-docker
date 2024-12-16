@@ -2,12 +2,12 @@
 FROM ubuntu:24.04
 
 
-# Set environment variable to avoid dialog prompts during package installation
-ENV DEBIAN_FRONTEND=noninteractive
-
-
 # Set the working directory to /myLocalWorkingDir
 WORKDIR /myLocalWorkingDir
+
+
+# Set environment variable to avoid dialog prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
 
 
 # Arduino related vars
@@ -29,6 +29,9 @@ ARG BRANCH=none
 
 ENV PATH="/opt/bin:$PATH"
 # ENV PATH="/opt/bin:/opt/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin:$PATH"
+
+
+SHELL ["/bin/bash", "-c"]
 
 
 # Update the package list and install any available updates
@@ -66,10 +69,14 @@ RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docke
 RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/container_cleanup.sh)"
 
 
-RUN hash
+# Create cmd script on-the-fly to be executed in CMD below to avoid docker warnings
+COPY --chmod=755 <<EOT /dockerCMD.sh
+#!/usr/bin/env bash
+set -e
+cd /myLocalWorkingDir
+bash
+EOT
 
 
 ## 
-CMD \
-cd /myLocalWorkingDir && \
-bash
+CMD ["/dockerCMD.sh"]
