@@ -34,7 +34,7 @@ ENV PATH="/opt/bin:$PATH"
 SHELL ["/bin/bash", "-c"]
 
 
-# Update the package list and install any available updates 
+# Update the package list and install any available updates
 RUN apt update && apt full-upgrade -y
 RUN apt-get install -y wget
 
