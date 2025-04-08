@@ -5,6 +5,8 @@ cd /opt
 
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/opt/bin sh -s ${ARDUINO_CLI_VERSION}
 
+ln -s /opt/bin/arduino-cli /opt/bin/arduino-cli.exe
+
 arduino-cli config init --config-file /root/.arduino15/arduino-cli.yaml --overwrite
 
 ### latest
