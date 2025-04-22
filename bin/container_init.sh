@@ -10,7 +10,7 @@ apt-get install -y apt-utils cmake curl expect-dev git gnupg make lsb-release so
 # lsof to install lsof
 # psmisc to install fuser
 # udev to install udevadm
-# usbutils to install lsusb
+# usbutils to install lsusb 
 
 # apt-get install -y clang-format clang-tidy clang-tools clang cppcheck gcc-arm-none-eabi binutils-arm-none-eabi
 # libffi-dev pkg-config
