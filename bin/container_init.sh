@@ -37,6 +37,7 @@ mkdir bin
 # Create dummy repo in order to be able to create link.
 # On the Lab-PC the full repo is available and will be used as the mounted directory from the Lab-PC has precedence.
 mkdir -p /opt/makers-hil/src/python/hil
+
 touch /opt/makers-hil/src/python/hil/runQuery.py
 chmod uog+rx /opt/makers-hil/src/python/hil/runQuery.py
 ln -s /opt/makers-hil/src/python/hil/runQuery.py /opt/bin/

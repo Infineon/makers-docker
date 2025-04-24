@@ -52,6 +52,10 @@ RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docke
 RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_arduino_cli.sh)"
 
 
+# install arm-non-eabi-gcc
+# RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_arm_none_eabi_gcc.sh)"
+
+
 # install LLVM tool suite
 RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_llvm.sh)"
 ENV CXX=clang++
