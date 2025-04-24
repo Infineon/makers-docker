@@ -30,6 +30,10 @@ ARG BRANCH=none
 ENV PATH="/opt/bin:$PATH"
 # ENV PATH="/opt/bin:/opt/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin:$PATH"
 
+#ENV UDEV=on
+
+SHELL ["/bin/bash", "-c"]
+
 
 SHELL ["/bin/bash", "-c"]
 
@@ -49,6 +53,10 @@ RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docke
 
 # install arduino-cli
 RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_arduino_cli.sh)"
+
+
+# install arm-non-eabi-gcc
+# RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_arm_none_eabi_gcc.sh)"
 
 
 # install LLVM tool suite

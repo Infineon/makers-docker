@@ -9,6 +9,7 @@ on:
       - 'v*'
     paths:
       - 'docker/makers-dockerfile'
+      - 'bin/*'
 
 
 jobs:
@@ -70,7 +71,7 @@ jobs:
 
 
       - if: ${{ github.event_name == 'push' }}
-        name: Build and push docker image to GitHub Container Registry and Docker Hub
+        name: Build and push docker image to GitHub Container Registry and Docker Hub due to push
         id: push
         uses: docker/build-push-action@v6
         with:
@@ -86,7 +87,7 @@ jobs:
 
 
       - if: ${{ github.event_name == 'release' }}
-        name: Build and push release docker image to GitHub Container Registry and Docker Hub with tags
+        name: Build and push release docker image to GitHub Container Registry and Docker Hub with tags due to release
         id: release
         uses: docker/build-push-action@v6
         with:
