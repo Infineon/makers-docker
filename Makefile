@@ -27,8 +27,8 @@ build-test-docker-container: build-docker-login
 
 # build the image with tag "push" from github source branch "test_push" - if there are changes in the Dockerfile or the bin or .github/workflows directory
 test-workflow: build-docker-login
-	git push --delete origin $(WORKFLOW_TEST_TAG)
-	git tag -d $(WORKFLOW_TEST_TAG)
+# git push --delete origin $(WORKFLOW_TEST_TAG)
+# git tag -d $(WORKFLOW_TEST_TAG)
 	git add Dockerfile .github/workflows/* bin/*
 	git commit -m "Updates of workflow and docker input files."
 	git tag -a -m "Release $(WORKFLOW_TEST_TAG) tag." $(WORKFLOW_TEST_TAG)
