@@ -11,6 +11,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV UDEV=1
 
 
+# Set environment variable to avoid dialog prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+
 # Arduino related vars
 ENV ARDUINO_CLI_VERSION=1.2.2
 # ENV XMC4ARDUINO_VERSION=3.4.1
@@ -31,6 +35,13 @@ ARG BRANCH=main
 
 ENV PATH="/opt/bin:extras/makers-devops/bin:$PATH"
 # ENV PATH="/opt/bin:/opt/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin:$PATH"
+
+#ENV UDEV=on
+
+SHELL ["/bin/bash", "-c"]
+
+
+SHELL ["/bin/bash", "-c"]
 
 
 SHELL ["/bin/bash", "-c"]
@@ -63,7 +74,7 @@ RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docke
 # RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_arm_none_eabi_gcc.sh)"
 
 
-# # install LLVM tool suite
+# install LLVM tool suite
 RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_llvm.sh)"
 ENV CXX=clang++
 ENV CC=clang
