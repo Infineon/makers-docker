@@ -56,8 +56,7 @@ RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docke
 
 
 # install arduino-cli
-#RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_arduino_cli.sh)"
-RUN source install_arduino_cli.sh
+RUN bash -c "$(wget -O - https://raw.githubusercontent.com/Infineon/makers-docker/refs/heads/${BRANCH}/bin/install_arduino_cli.sh)"
 
 
 # install arm-non-eabi-gcc
