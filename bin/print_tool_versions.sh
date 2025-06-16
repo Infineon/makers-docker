@@ -33,5 +33,5 @@ echo ""
 echo "    cppcheck --version : "`cppcheck --version`
 echo ""
 
-echo "    which scanbuild : "`which scanbuild`
+echo "    which scan-build : "`which scan-build`
 echo ""

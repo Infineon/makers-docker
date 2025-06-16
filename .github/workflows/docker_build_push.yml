@@ -8,7 +8,7 @@ on:
     tags:
       - 'v*'
     paths:
-      - 'docker/makers-dockerfile'
+      - Dockerfile
       - 'bin/*'
 
 
@@ -70,12 +70,13 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
 
+      # Must be a push on branch "test_push" for testing the push.
       - if: ${{ github.event_name == 'push' }}
         name: Build and push docker image to GitHub Container Registry and Docker Hub due to push
         id: push
         uses: docker/build-push-action@v6
         with:
-          file: docker/makers-dockerfile
+          file: Dockerfile
           push: true
           # sbom: true
           tags: |
@@ -91,7 +92,7 @@ jobs:
         id: release
         uses: docker/build-push-action@v6
         with:
-          file: docker/makers-dockerfile
+          file: Dockerfile
           push: true
           # sbom: true
           tags: |
