@@ -15,6 +15,7 @@ cd /opt/SEGGER
 tar zxvf JLink_Linux_${SEGGER_VERSION}_x86_64.tgz
 chmod a-w JLink_Linux_${SEGGER_VERSION}_x86_64
 
+ln -s /opt/SEGGER/JLink_Linux_${SEGGER_VERSION}_x86_64/ /opt/SEGGER/JLink
 ln -s /opt/SEGGER/JLink_Linux_${SEGGER_VERSION}_x86_64/JLink*Exe /opt/bin
 
 mkdir -p /etc/udev/rules.d/
