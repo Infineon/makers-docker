@@ -63,7 +63,7 @@ RUN source install_arduino_cli.sh
 #RUN source install_arm_none_eabi_gcc.sh
 
 
-# # install LLVM tool suite
+# install LLVM tool suite
 RUN source install_llvm.sh
 ENV CXX=clang++
 ENV CC=clang
