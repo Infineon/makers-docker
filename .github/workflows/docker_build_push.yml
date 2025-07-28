@@ -8,8 +8,10 @@ on:
     tags:
       - 'v*'
     paths:
-      - Dockerfile
+      - Dockerfile*
+      - Makefile
       - 'bin/*'
+      - .github/workflows
 
 
 jobs:
