@@ -32,7 +32,8 @@ test-workflow:
 	git add Dockerfile Dockerfile.test Makefile .github/workflows/* bin/* 2>&1 | tee -a workflow_docker_gen.log
 	git commit -m "Updates of workflow and docker input files." 2>&1 | tee -a workflow_docker_gen.log
 	git tag -a -m "Release $(WORKFLOW_TEST_TAG) tag." $(WORKFLOW_TEST_TAG) 2>&1 | tee -a workflow_docker_gen.log
-	git push --follow-tags --set-upstream origin test_push 2>&1 | tee -a workflow_docker_gen.log
+	git push --follow-tags 2>&1 | tee -a workflow_docker_gen.log
+# 	git push --follow-tags --set-upstream origin test_push 2>&1 | tee -a workflow_docker_gen.log
 
 
 ##############################################################################################################################################################
