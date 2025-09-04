@@ -38,8 +38,8 @@ test-workflow:
 
 ##############################################################################################################################################################
 #TAG=push
-#TAG=latest
-TAG=test
+TAG=latest
+#TAG=test
 
 #DOCKER_REGISTRY=dockerregistry-v2.vih.infineon.com/ifxmakers/makers-docker:$(TAG)
 DOCKER_REGISTRY=ifxmakers/makers-docker:$(TAG)
