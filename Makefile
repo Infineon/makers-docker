@@ -1,8 +1,16 @@
 
-CONTAINER_TAG=v0.0.3
+CONTAINER_TAG=v0.0.4
 TEST_CONTAINER_TAG=test
 
-WORKFLOW_TEST_TAG=v0.0.3
+WORKFLOW_TEST_TAG=v0.0.4
+
+
+# Proxy settings file on the deploy host (override with PROXY_ENV_FILE= to disable)
+PROXY_ENV_FILE ?= /etc/proxy-settings.env
+
+# Conditionally set proxy flags if the env file exists on the host
+PROXY_RUN_FLAGS := $(shell test -f "$(PROXY_ENV_FILE)" && echo "--env-file $(PROXY_ENV_FILE)")
+PROXY_BUILD_ARGS := $(shell test -f "$(PROXY_ENV_FILE)" && . "$(PROXY_ENV_FILE)" && echo "--build-arg http_proxy=$$http_proxy --build-arg https_proxy=$$https_proxy --build-arg no_proxy=$$no_proxy")
 
 
 # store github password safely in local password file with owner only access !
@@ -12,7 +20,7 @@ build-docker-login:
 
 # building the docker image from file Dockerfile using the github project sources of install scripts in the main branch
 build-local-docker-container: build-docker-login
-	docker build -t makers-docker:$(CONTAINER_TAG) -t makers-docker:latest -f Dockerfile docker 2>&1 | tee local_docker_gen.log
+	docker build $(PROXY_BUILD_ARGS) -t makers-docker:$(CONTAINER_TAG) -t makers-docker:latest -f Dockerfile docker 2>&1 | tee local_docker_gen.log
 	docker image tag makers-docker:$(CONTAINER_TAG) ifxmakers/makers-docker:$(CONTAINER_TAG) 2>&1 | tee -a local_docker_gen.log
 	docker image tag makers-docker:latest ifxmakers/makers-docker:latest 2>&1 | tee -a local_docker_gen.log
 	docker image push ifxmakers/makers-docker:$(CONTAINER_TAG) 2>&1 | tee -a local_docker_gen.log
@@ -20,7 +28,7 @@ build-local-docker-container: build-docker-login
 
 # building the docker image from file Dockerfile.test using the local sources of install scripts
 build-test-docker-container: build-docker-login
-	docker build -t makers-docker:$(TEST_CONTAINER_TAG) -f Dockerfile.test . 2>&1 | tee -a test_docker_gen.log
+	docker build $(PROXY_BUILD_ARGS) -t makers-docker:$(TEST_CONTAINER_TAG) -f Dockerfile.test . 2>&1 | tee -a test_docker_gen.log
 	docker image tag makers-docker:$(TEST_CONTAINER_TAG) ifxmakers/makers-docker:$(TEST_CONTAINER_TAG) 2>&1 | tee -a test_docker_gen.log
 	docker image push ifxmakers/makers-docker:$(TEST_CONTAINER_TAG) 2>&1 | tee -a test_docker_gen.log
 
@@ -52,7 +60,7 @@ REGISTRY=$(DOCKER_REGISTRY)
 ### Setting DOCKER variable to empty string => containers not used
 ### Setting DOCKER variable to "docker run ..." => containers used
 DOCKER=
-DOCKER=docker run --rm -it --privileged $(DEVICES) -v $(PWD):/myLocalWorkingDir:rw -v /opt/makers-hil:/opt/makers-hil:ro -v /opt/hil:/opt/hil:ro -w /myLocalWorkingDir $(REGISTRY)
+DOCKER=docker run --rm -it --privileged $(DEVICES) $(PROXY_RUN_FLAGS) -v $(PWD):/myLocalWorkingDir:rw -v /opt/makers-hil:/opt/makers-hil:ro -v /opt/hil:/opt/hil:ro -w /myLocalWorkingDir $(REGISTRY)
 
 
 pull-container:
