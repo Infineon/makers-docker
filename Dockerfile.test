@@ -16,8 +16,8 @@ ENV ARDUINO_CLI_VERSION=1.2.2
 # ENV XMC4ARDUINO_VERSION=3.4.1
 # ENV PSOC4ARDUINO_VERSION=0.5.0
 
-ENV ARDUINO_CONFIG_FILE=/root/.arduino15/arduino-cli.yaml
-ENV ARDUINO_DIRECTORIES_DATA=/root/.arduino15
+ENV ARDUINO_CONFIG_FILE=/opt/.arduino15/arduino-cli.yaml
+ENV ARDUINO_DIRECTORIES_DATA=/opt/.arduino15
 
 
 # Tool related version vars
@@ -48,7 +48,7 @@ RUN source container_init.sh
 
 
 # install Segger JLink
-RUN source install_segger.sh
+# RUN source install_segger.sh
 
 
 # basic dependencies to Python
@@ -64,13 +64,13 @@ RUN source install_arduino_cli.sh
 
 
 # install LLVM tool suite
-RUN source install_llvm.sh
-ENV CXX=clang++
-ENV CC=clang
+# RUN source install_llvm.sh
+# ENV CXX=clang++
+# ENV CC=clang
  
 
 # install cppcheck after LLVM as LLVM is used for compiling cppcheck !
-RUN source install_cppcheck.sh
+# RUN source install_cppcheck.sh
 
 
 # print used tool related vars
